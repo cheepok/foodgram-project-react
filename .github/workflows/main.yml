@@ -104,12 +104,12 @@ jobs:
         tags: ${{ secrets.DOCKER_USERNAME }}/foodgram_front:latest
 
   deploy:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     needs:
       - build_push_backend_to_DockerHub
       - build_push_frontend_to_DockerHub
     steps:
-    - name: remote ssh commands to deploy
+    - name: executing remote ssh commands to deploy
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST_IP }}
@@ -117,7 +117,7 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
         script: |
-          cd projects/foodgram/
+          cd foodgram/
           touch .env
           echo DEBUG=${{ secrets.DEBUG }} >> .env
           echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
