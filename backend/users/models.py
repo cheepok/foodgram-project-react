@@ -5,6 +5,7 @@
 AbstractUser из Django для переопределения полей обязательных для заполнения.
 """
 from api import conf
+
 from django.contrib.auth.models import AbstractUser
 from django.db.models import (CharField, CheckConstraint, EmailField,
                               ManyToManyField, Q)

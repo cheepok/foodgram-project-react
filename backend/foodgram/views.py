@@ -3,10 +3,10 @@ from django.shortcuts import render
 
 def page_not_found(request, exception):
     return render(
-        request, "404.html",
+        request, '404.html',
         {
-            "path": request.path,
-            "title": "Not found",
+            'path': request.path,
+            'title': 'Not found',
         },
         status=404
     )
@@ -14,10 +14,10 @@ def page_not_found(request, exception):
 
 def server_error(request):
     return render(
-        request, "500.html",
+        request, '500.html',
         {
-            "path": request.path,
-            "title": "Internal Server Error",
+            'path': request.path,
+            'title': 'Internal Server Error',
         },
         status=500
     )

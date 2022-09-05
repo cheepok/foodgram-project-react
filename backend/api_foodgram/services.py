@@ -1,6 +1,7 @@
 from string import hexdigits
 
 from recipes.models import AmountIngredient
+
 from rest_framework.serializers import ValidationError
 
 
@@ -39,6 +40,6 @@ def is_hex_color(value):
 
 
 incorrect_layout = str.maketrans(
-    'qwertyuiop[]asdfghjkl;\'zxcvbnm,./',
-    'йцукенгшщзхъфывапролджэячсмитьбю.'
+    "qwertyuiop[]asdfghjkl;\'zxcvbnm,./",
+    "йцукенгшщзхъфывапролджэячсмитьбю."
 )
