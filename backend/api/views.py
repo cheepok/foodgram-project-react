@@ -123,8 +123,7 @@ class IngredientViewSet(ReadOnlyModelViewSet):
             stw_queryset.extend(
                 [i for i in cnt_queryset if i not in stw_queryset]
             )
-            queryset = stw_queryset
-        return queryset
+            return stw_queryset
 
 
 class RecipeViewSet(ModelViewSet, AddDelViewMixin):
@@ -167,17 +166,15 @@ class RecipeViewSet(ModelViewSet, AddDelViewMixin):
 
         is_in_shopping = self.request.query_params.get(conf.SHOP_CART)
         if is_in_shopping in conf.SYMBOL_TRUE_SEARCH:
-            queryset = queryset.filter(cart=user.id)
+            return queryset.filter(cart=user.id)
         elif is_in_shopping in conf.SYMBOL_FALSE_SEARCH:
-            queryset = queryset.exclude(cart=user.id)
+            return queryset.exclude(cart=user.id)
 
         is_favorited = self.request.query_params.get(conf.FAVORITE)
         if is_favorited in conf.SYMBOL_TRUE_SEARCH:
-            queryset = queryset.filter(favorite=user.id)
+            return queryset.filter(favorite=user.id)
         if is_favorited in conf.SYMBOL_FALSE_SEARCH:
-            queryset = queryset.exclude(favorite=user.id)
-
-        return queryset
+            return queryset.exclude(favorite=user.id)
 
     @action(methods=conf.ACTION_METHODS, detail=True)
     def favorite(self, request, pk):
