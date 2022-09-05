@@ -41,5 +41,5 @@ def is_hex_color(value):
 
 incorrect_layout = str.maketrans(
     "qwertyuiop[]asdfghjkl;\'zxcvbnm,./",
-    "йцукенгшщзхъфывапролджэячсмитьбю."
+    'йцукенгшщзхъфывапролджэячсмитьбю.'
 )
