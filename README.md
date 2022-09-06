@@ -71,7 +71,7 @@ DB_PORT=5432
 ```
 scp -r infra/* <server user>@<server IP>:/home/<server user>/foodgram/
 ```
-- Run docker-compose
+- Run docker-compose  
 
 51.250.95.62 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBHUn582nCJeXdmG3BKthmc6Jlc9IC+8OpZpcHV5eUOE03/1hlAcFcmnziL9AFXt//hKMQRvrtUINXrJ+Nogh+5c=
 51.250.95.62 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDAn+YzSZYwmq3xR74HCYXSuQPt9mOq6HeBdtTAtgcFCNG261Efzja2qDV6q3QsmMjtLxkrAC4HG0o1FJDKrOUrerzwcZCzGw7lguPNyFsFZjB3bpevuHZluI+YcqqVpEY7zQv+vXGcj1yf1Czpie6cQX91esPWwGnFgxcSTNW8uWnYvce6u4UH4qvtZm74+k1W6xeO8nNkPEf/5qGkLi92avz5Wrj+Aej4ECbDnj05Dz/yiqKqI9KzEZ306+nRer5z/bYosikojeo9KKEPVBcB+cHRfqP5+J7ZwgxcBmCY6R3cE/za2N7HSd3KnV1SzPfNKlqyNGDHLS9IZ+7fmkslnaL5Pn+w54n/75x6hmG9bgNiWQi8IQw+g6umpOcqmmvNTOG8/pF19cmjkRam/pdAXk5eyxN1osRPnGbrYFx8AprXNmeYuYp2u6fMA0V4MXYvb72MbgqUd4yi3Bo15YOP/YDs71nf7SYuDLz6/C3vJesm9nyZXrHlyaK6nKQJDVs=
