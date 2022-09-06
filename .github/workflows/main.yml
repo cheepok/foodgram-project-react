@@ -117,7 +117,7 @@ jobs:
         passphrase: ${{ secrets.PASSPHRASE }}
         script: |
           cd foodgram/
-          touch .env
+          sudo touch .env
           echo DEBUG=${{ secrets.DEBUG }} >> .env
           echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
           echo ALLOWED_HOSTS=${{ secrets.ALLOWED_HOSTS }} >> .env
