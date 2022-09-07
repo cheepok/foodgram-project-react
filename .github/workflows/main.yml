@@ -53,7 +53,6 @@ jobs:
           remote: /${{ secrets.HOST_USER }}/projects/foodgram/
           host: ${{ secrets.HOST_IP }}
           username: ${{ secrets.HOST_USER }}
-          passphrase: ${{ secrets.HOST_PASS }}
           privateKey: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
 
