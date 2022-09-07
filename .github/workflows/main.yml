@@ -53,8 +53,10 @@ jobs:
           remote: /${{ secrets.HOST_USER }}/projects/foodgram/
           host: ${{ secrets.HOST_IP }}
           username: ${{ secrets.HOST_USER }}
-          privateKey: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.HOST_PASS }}
+          privateKey: ${{ secrets.SSH_KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+
 
   build_push_backend_to_DockerHub:
     name: Building back image and pushing it to Docker Hub
