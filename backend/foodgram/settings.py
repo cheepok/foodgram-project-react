@@ -2,7 +2,6 @@ from pathlib import Path
 
 from decouple import Csv, config
 
-# Eсли true то будет использована прилагаемая база SQLite c записанными данными
 REVIEW = 0
 
 DEBUG = config('DEBUG', default=False, cast=bool)
@@ -136,7 +135,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 PASSWORD_RESET_TIMEOUT = 60 * 60
 
-# for review
 if REVIEW:
     DATABASES = {
         'default': {
