@@ -57,7 +57,7 @@ class Tag(Model):
 class Ingredient(Model):
     name = CharField(
         verbose_name='Ингридиент',
-        verbose_name_plural = 'Ингридиенты',
+        verbose_name_plural='Ингридиенты',
         max_length=200,
     )
     measurement_unit = CharField(
