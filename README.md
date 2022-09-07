@@ -34,7 +34,7 @@ DB_HOST='db'
 DB_PORT=5432
 
 - Скопируйте файлы из папки 'infra/' на сервер в папку проекта:
-- Запустите docker-compose   
+- Запустите docker-compose  
 ```
 sudo docker-compose up -d
 ```
