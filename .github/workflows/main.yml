@@ -54,6 +54,7 @@ jobs:
           host: ${{ secrets.HOST_IP }}
           username: ${{ secrets.HOST_USER }}
           privateKey: ${{ secrets.SSH_KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
           passphrase: ${{ secrets.HOST_PASS }}
 
   build_push_backend_to_DockerHub:
