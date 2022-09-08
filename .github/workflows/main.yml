@@ -160,8 +160,8 @@ jobs:
     - name: remote ssh commands to deploy
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.HOST_IP }}
-        username: cheepok
+        host: 51.250.95.62
+        username: ${{ secrets.DOCKER_USERNAME }}
         key: ${{ secrets.SSH_KEY }}
         passphrase: 8wnrrCk
         script: |
