@@ -161,7 +161,7 @@ jobs:
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST_IP }}
-        username: ${{ secrets.HOST_USER }}
+        username: cheepok
         key: ${{ secrets.SSH_KEY }}
         passphrase: 8wnrrCk
         script: |
