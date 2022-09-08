@@ -165,7 +165,7 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
         script: |
-          cd projects/foodgram/
+          cd /foodgram/
           touch .env
           echo DEBUG=${{ secrets.DEBUG }} >> .env
           echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
@@ -179,9 +179,7 @@ jobs:
           echo DB_PORT=${{ secrets.DB_PORT }} >> .env
 
           sudo docker-compose stop
-          sudo docker rm foodgram_frontend_1
-          sudo docker rm foodgram_backend_1
-          sudo docker rmi ${{ secrets.DOCKER_USERNAME }}/foodgram_front
+          sudo docker rmi ${{ secrets.DOCKER_USERNAME }}/foodgram_frontend
           sudo docker rmi ${{ secrets.DOCKER_USERNAME }}/foodgram_backend
           sudo docker-compose up -d
       # with:
