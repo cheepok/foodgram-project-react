@@ -163,7 +163,7 @@ jobs:
         host: 51.250.95.62
         username: ${{ secrets.DOCKER_USERNAME }}
         key: ${{ secrets.SSH_KEY }}
-        passphrase: 8wnrrCk
+        passphrase: ${{ secrets.PASSPHRASE }}
         script: |
           cd projects/foodgram/
           touch .env
