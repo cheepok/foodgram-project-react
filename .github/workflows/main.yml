@@ -108,6 +108,7 @@ jobs:
     name: Building back image and pushing it to Docker Hub
     runs-on: ubuntu-20.04
     needs: tests
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
     steps:
     - uses: actions/checkout@v2
 
@@ -131,6 +132,7 @@ jobs:
     name: Building front image and pushing it to Docker Hub
     runs-on: ubuntu-20.04
     needs: tests
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
     steps:
     - uses: actions/checkout@v2
 
