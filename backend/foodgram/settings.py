@@ -1,21 +1,23 @@
 # import os
 from pathlib import Path
 
-from decouple import Csv, config
+from decouple import Csv
+
+from api import conf
 
 REVIEW = 0
 
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = conf('DEBUG', default=False, cast=bool)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = config('SECRET_KEY', default='string_from_.env')
+SECRET_KEY = conf('SECRET_KEY', default='string_from_.env')
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='*', cast=Csv())
+ALLOWED_HOSTS = conf('ALLOWED_HOSTS', default='*', cast=Csv())
 
 # ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = config(
+CSRF_TRUSTED_ORIGINS = conf(
     'CSRF_TRUSTED_ORIGINS',
     default='http://localhost http://127.0.0.1',
     cast=Csv()
@@ -77,17 +79,17 @@ TEMPLATES = [
 
 DATABASES = {
     'default': {
-        'ENGINE': config(
+        'ENGINE': conf(
             'DB_ENGINE', default='django.db.backends.postgresql'),
-        'NAME': config(
+        'NAME': conf(
             'DB_NAME', default='postgres'),
-        'USER': config(
+        'USER': conf(
             'POSTGRES_USER', default='postgres'),
-        'PASSWORD': config(
+        'PASSWORD': conf(
             'POSTGRES_PASSWORD', default='password'),
-        'HOST': config(
+        'HOST': conf(
             'DB_HOST', default='db'),
-        'PORT': config(
+        'PORT': conf(
             'DB_PORT', default=5432, cast=int)
     }
 }
