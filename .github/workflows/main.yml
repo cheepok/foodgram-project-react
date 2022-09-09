@@ -39,7 +39,7 @@ jobs:
   #       host: 51.250.95.62
   #       username: ${{ secrets.HOST_USER }}
   #       key: ${{ secrets.SSH_KEY }}
-  #       passphrase: ${{ secrets.PASSPHRASE }}  
+  #       passphrase: ${{ secrets.PASSPHRASE }} 
   #       script: | 
   #         sudo rm -rf foodgram
   #         mkdir -p foodgram
