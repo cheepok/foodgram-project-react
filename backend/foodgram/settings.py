@@ -11,9 +11,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config('SECRET_KEY', default='string_from_.env')
 
-# ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='*', cast=Csv())
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='*', cast=Csv())
 
-ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['*']
 
 CSRF_TRUSTED_ORIGINS = config(
     'CSRF_TRUSTED_ORIGINS',
@@ -68,29 +68,29 @@ TEMPLATES = [
     },
 ]
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': config(
-#             'DB_ENGINE', default='django.db.backends.postgresql'),
-#         'NAME': config(
-#             'DB_NAME', default='postgres'),
-#         'USER': config(
-#             'POSTGRES_USER', default='postgres'),
-#         'PASSWORD': config(
-#             'POSTGRES_PASSWORD', default='password'),
-#         'HOST': config(
-#             'DB_HOST', default='db'),
-#         'PORT': config(
-#             'DB_PORT', default=5432, cast=int)
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': config(
+            'DB_ENGINE', default='django.db.backends.postgresql'),
+        'NAME': config(
+            'DB_NAME', default='postgres'),
+        'USER': config(
+            'POSTGRES_USER', default='postgres'),
+        'PASSWORD': config(
+            'POSTGRES_PASSWORD', default='password'),
+        'HOST': config(
+            'DB_HOST', default='db'),
+        'PORT': config(
+            'DB_PORT', default=5432, cast=int)
+    }
+}
 
 AUTH_USER_MODEL = 'users.MyUser'
 
