@@ -6,7 +6,7 @@ from decouple import Csv
 
 REVIEW = 0
 
-DEBUG = conf('DEBUG', default=False, cast=bool)
+DEBUG = True
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
