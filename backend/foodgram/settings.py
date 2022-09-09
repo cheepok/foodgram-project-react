@@ -1,9 +1,8 @@
 # import os
 from pathlib import Path
 
-from decouple import Csv
-
 from api import conf
+from decouple import Csv
 
 REVIEW = 0
 
