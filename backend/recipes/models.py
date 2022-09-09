@@ -33,7 +33,6 @@ class Tag(Model):
 
     class Meta:
         verbose_name = 'Тэг'
-        verbose_name_plural = 'Тэги'
         ordering = ('name', )
         constraints = (
             CheckConstraint(
@@ -57,7 +56,6 @@ class Tag(Model):
 class Ingredient(Model):
     name = CharField(
         verbose_name='Ингридиент',
-        verbose_name_plural='Ингридиенты',
         max_length=200,
     )
     measurement_unit = CharField(
@@ -95,7 +93,6 @@ class Recipe(Model):
     )
     author = ForeignKey(
         verbose_name='Автор рецепта',
-        verbose_name_plural='Авторы рецепта',
         related_name='recipes',
         to=User,
         on_delete=CASCADE,
