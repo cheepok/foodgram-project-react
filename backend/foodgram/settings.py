@@ -1,8 +1,5 @@
-# import os
+import os
 from pathlib import Path
-
-from api import conf
-from decouple import Csv
 
 REVIEW = 0
 
@@ -12,15 +9,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'bu_7ozjkphu*f_kf5r1kpzc#6oe6=i#rk-=zvbrz6dily_4ult'
 
-ALLOWED_HOSTS = conf('ALLOWED_HOSTS', default='*', cast=Csv())
+ALLOWED_HOSTS = [
+    "51.250.95.62",
+    "127.0.0.1",
+    "localhost",
+    "web"
+]
 
 # ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = conf(
-    'CSRF_TRUSTED_ORIGINS',
-    default='http://localhost http://127.0.0.1',
-    cast=Csv()
-)
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost",
+    "http://127.0.0.1",
+    "http://51.250.95.62"
+]
 
 ROOT_URLCONF = 'foodgram.urls'
 
@@ -78,18 +80,12 @@ TEMPLATES = [
 
 DATABASES = {
     'default': {
-        'ENGINE': conf(
-            'DB_ENGINE', default='django.db.backends.postgresql'),
-        'NAME': conf(
-            'DB_NAME', default='postgres'),
-        'USER': conf(
-            'POSTGRES_USER', default='postgres'),
-        'PASSWORD': conf(
-            'POSTGRES_PASSWORD', default='password'),
-        'HOST': conf(
-            'DB_HOST', default='db'),
-        'PORT': conf(
-            'DB_PORT', default=5432, cast=int)
+        'ENGINE': os.getenv('DB_ENGINE', default="django.db.backends.postgresql"),
+        'NAME': os.getenv('DB_NAME', default="postgres"),
+        'USER': os.getenv('POSTGRES_USER', default="postgres"),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD', default="postgres"),
+        'HOST': os.getenv('DB_HOST', default="db"),
+        'PORT': os.getenv('DB_PORT', default="5432")
     }
 }
 
