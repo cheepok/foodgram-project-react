@@ -10,7 +10,7 @@ DEBUG = True
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = conf('SECRET_KEY', default='string_from_.env')
+SECRET_KEY = 'bu_7ozjkphu*f_kf5r1kpzc#6oe6=i#rk-=zvbrz6dily_4ult'
 
 ALLOWED_HOSTS = conf('ALLOWED_HOSTS', default='*', cast=Csv())
 
