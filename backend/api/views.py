@@ -27,11 +27,14 @@ class UserViewSet(DjoserUserViewSet, AddDelViewMixin):
     pagination_class = PageLimitPagination
     add_serializer = UserSubscribeSerializer
 
-    @action(methods=conf.ACTION_METHODS, detail=True)
+    @action(
+        detail=False,
+        methods=['GET', 'POST', 'DELETE'],
+    )
     def subscribe(self, request, id):
         return self.add_del_obj(id, conf.SUBSCRIBE_M2M)
 
-    @action(methods=('get',), detail=False)
+    @action(methods=('GET',), detail=False)
     def subscriptions(self, request):
         user = self.request.user
         if user.is_anonymous:

@@ -1,4 +1,9 @@
 import os
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
 from datetime import timedelta
 from pathlib import Path
 
@@ -112,11 +117,6 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ],
-}
-
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIVETIME': timedelta(days=10),
-    'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
 DJOSER = {

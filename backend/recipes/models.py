@@ -55,7 +55,7 @@ class Tag(Model):
 
 class Ingredient(Model):
     name = CharField(
-        verbose_name='Ингридиент',
+        verbose_name='Название',
         max_length=200,
     )
     measurement_unit = CharField(
@@ -88,11 +88,11 @@ class Ingredient(Model):
 
 class Recipe(Model):
     name = CharField(
-        verbose_name='Название блюда',
+        verbose_name='Название',
         max_length=200,
     )
     author = ForeignKey(
-        verbose_name='Автор рецепта',
+        verbose_name='Автор публикации',
         related_name='recipes',
         to=User,
         on_delete=CASCADE,
@@ -123,7 +123,7 @@ class Recipe(Model):
         auto_now_add=True,
     )
     image = ImageField(
-        verbose_name='Изображение блюда',
+        verbose_name='Изображение',
         upload_to='recipe_images/',
     )
     text = TextField(
