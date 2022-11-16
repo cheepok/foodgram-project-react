@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='myuser',
             name='password',
-            field=models.CharField(help_text='Обязательно. До 30 символов', max_length=30, verbose_name='Пароль'),
+            field=models.CharField(help_text='Обязательно. До 150 символов', max_length=150, verbose_name='Пароль'),
         ),
         migrations.AlterField(
             model_name='myuser',
