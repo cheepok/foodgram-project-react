@@ -4,8 +4,11 @@ from urllib.parse import unquote
 from django.contrib.auth import get_user_model
 from django.db.models import F, Sum
 from django.http.response import HttpResponse
+
 from djoser.views import UserViewSet as DjoserUserViewSet
+
 from recipes.models import AmountIngredient, Ingredient, Recipe, Tag
+
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_401_UNAUTHORIZED
@@ -24,18 +27,47 @@ User = get_user_model()
 
 
 class UserViewSet(DjoserUserViewSet, AddDelViewMixin):
+    """Работает с пользователями.
+
+    ViewSet для работы с пользователми - вывод таковых,
+    регистрация.
+    Для авторизованных пользователей —
+    возможность подписаться на автора рецепта.
+    """
     pagination_class = PageLimitPagination
     add_serializer = UserSubscribeSerializer
 
-    @action(
-        detail=False,
-        methods=['GET', 'POST', 'DELETE'],
-    )
+    @action(methods=conf.ACTION_METHODS, detail=True)
     def subscribe(self, request, id):
+        """Создаёт/удалет связь между пользователями.
+
+        Вызов метода через url: */user/<int:id>/subscribe/.
+
+        Args:
+            request (Request): Не используется.
+            id (int, str):
+                id пользователя, на которого желает подписаться
+                или отписаться запращивающий пользователь.
+
+        Returns:
+            Responce: Статус подтверждающий/отклоняющий действие.
+        """
         return self.add_del_obj(id, conf.SUBSCRIBE_M2M)
 
-    @action(methods=('GET',), detail=False)
+    @action(methods=('get',), detail=False)
     def subscriptions(self, request):
+        """Список подписок пользоваетеля.
+
+        Вызов метода через url: */user/<int:id>/subscribtions/.
+
+        Args:
+            request (Request): Не используется.
+
+        Returns:
+            Responce:
+                401 - для неавторизованного пользователя.
+                Список подписок для авторизованного пользователя.
+        """
         user = self.request.user
         if user.is_anonymous:
             return Response(status=HTTP_401_UNAUTHORIZED)
@@ -48,17 +80,39 @@ class UserViewSet(DjoserUserViewSet, AddDelViewMixin):
 
 
 class TagViewSet(ReadOnlyModelViewSet):
+    """Работает с тэгами.
+
+    Изменение и создание тэгов разрешено только админам.
+    """
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
     permission_classes = (AdminOrReadOnly,)
 
 
 class IngredientViewSet(ReadOnlyModelViewSet):
+    """Работет с игридиентами.
+
+    Изменение и создание ингридиентов разрешено только админам.
+    """
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
     permission_classes = (AdminOrReadOnly,)
 
     def get_queryset(self):
+        """Получает queryset в соответствии с параметрами запроса.
+
+        Реализован поиск объектов по совпадению в начале названия,
+        также добавляются результаты по совпадению в середине.
+        При наборе названия в неправильной раскладке - латинские символы
+        преобразуются в кириллицу (для стандартной раскладки).
+        Также прописные буквы преобразуются в строчные,
+        так как все ингридиенты в базе записаны в нижнем регистре.
+
+        Returns:
+            QuerySet: Список запрошенных объектов.
+
+        TODO: `exclude` in queryset.
+        """
         name = self.request.query_params.get(conf.SEARCH_ING_NAME)
         queryset = self.queryset
         if name:
@@ -72,10 +126,20 @@ class IngredientViewSet(ReadOnlyModelViewSet):
             stw_queryset.extend(
                 [i for i in cnt_queryset if i not in stw_queryset]
             )
-            return stw_queryset
+            queryset = stw_queryset
+        return queryset
 
 
 class RecipeViewSet(ModelViewSet, AddDelViewMixin):
+    """Работает с рецептами.
+
+    Вывод, создание, редактирование, добавление/удаление
+    в избранное и список покупок.
+    Отправка текстового файла со списком покупок.
+    Для авторизованных пользователей — возможность добавить
+    рецепт в избранное и в список покупок.
+    Изменять рецепт может только автор или админы.
+    """
     queryset = Recipe.objects.select_related('author')
     serializer_class = RecipeSerializer
     permission_classes = (AuthorStaffOrReadOnly,)
@@ -83,6 +147,11 @@ class RecipeViewSet(ModelViewSet, AddDelViewMixin):
     add_serializer = ShortRecipeSerializer
 
     def get_queryset(self):
+        """Получает queryset в соответствии с параметрами запроса.
+
+        Returns:
+            QuerySet: Список запрошенных объектов.
+        """
         queryset = self.queryset
 
         tags = self.request.query_params.getlist(conf.TAGS)
@@ -94,32 +163,71 @@ class RecipeViewSet(ModelViewSet, AddDelViewMixin):
         if author:
             queryset = queryset.filter(author=author)
 
+        # Следующие фильтры только для авторизованного пользователя
         user = self.request.user
         if user.is_anonymous:
             return queryset
 
         is_in_shopping = self.request.query_params.get(conf.SHOP_CART)
         if is_in_shopping in conf.SYMBOL_TRUE_SEARCH:
-            return queryset.filter(cart=user.id)
+            queryset = queryset.filter(cart=user.id)
         elif is_in_shopping in conf.SYMBOL_FALSE_SEARCH:
-            return queryset.exclude(cart=user.id)
+            queryset = queryset.exclude(cart=user.id)
 
         is_favorited = self.request.query_params.get(conf.FAVORITE)
         if is_favorited in conf.SYMBOL_TRUE_SEARCH:
-            return queryset.filter(favorite=user.id)
+            queryset = queryset.filter(favorite=user.id)
         if is_favorited in conf.SYMBOL_FALSE_SEARCH:
-            return queryset.exclude(favorite=user.id)
+            queryset = queryset.exclude(favorite=user.id)
+
+        return queryset
 
     @action(methods=conf.ACTION_METHODS, detail=True)
     def favorite(self, request, pk):
+        """Добавляет/удалет рецепт в `избранное`.
+
+        Вызов метода через url: */recipe/<int:pk>/favorite/.
+
+        Args:
+            request (Request): Не используется.
+            pk (int, str):
+                id рецепта, который нужно добавить/удалить из `избранного`.
+
+        Returns:
+            Responce: Статус подтверждающий/отклоняющий действие.
+        """
         return self.add_del_obj(pk, conf.FAVORITE_M2M)
 
     @action(methods=conf.ACTION_METHODS, detail=True)
     def shopping_cart(self, request, pk):
+        """Добавляет/удалет рецепт в `список покупок`.
+
+        Вызов метода через url: *//recipe/<int:pk>/shopping_cart/.
+
+        Args:
+            request (Request): Не используется.
+            pk (int, str):
+                id рецепта, который нужно добавить/удалить в `корзину покупок`.
+
+        Returns:
+            Responce: Статус подтверждающий/отклоняющий действие.
+        """
         return self.add_del_obj(pk, conf.SHOP_CART_M2M)
 
     @action(methods=('get',), detail=False)
     def download_shopping_cart(self, request):
+        """Загружает файл *.txt со списком покупок.
+
+        Считает сумму ингредиентов в рецептах выбранных для покупки.
+        Возвращает текстовый файл со списком ингредиентов.
+        Вызов метода через url:  */recipe/<int:id>/download_shopping_cart/.
+
+        Args:
+            request (Request): Не используется.
+
+        Returns:
+            Responce: Ответ с текстовым файлом.
+        """
         user = self.request.user
         if not user.carts.exists():
             return Response(status=HTTP_400_BAD_REQUEST)

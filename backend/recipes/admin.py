@@ -3,7 +3,7 @@ from django.utils.safestring import mark_safe
 
 from .models import AmountIngredient, Ingredient, Recipe, Tag
 
-site.site_header = 'Админ-зона'
+site.site_header = 'Администрирование Foodgram'
 EMPTY_VALUE_DISPLAY = 'Значение не указано'
 
 
