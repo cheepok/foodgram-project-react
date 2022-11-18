@@ -2,6 +2,8 @@
 version: '3.3'
 services:
 
+# 123123
+
   frontend:
     image: xewus/foodgram_front:latest
     volumes:
