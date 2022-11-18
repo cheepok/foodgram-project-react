@@ -1,5 +1,5 @@
-from pathlib import Path
 import os
+from pathlib import Path
 
 from decouple import Csv, config
 
@@ -15,10 +15,10 @@ SECRET_KEY = config('SECRET_KEY', default='string_from_.env')
 # ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='*', cast=Csv())
 
 ALLOWED_HOSTS = [
-    "51.250.95.62",
-    "127.0.0.1",
-    "localhost",
-    "web"
+    '51.250.95.62',
+    '127.0.0.1',
+    'localhost',
+    'web'
 ]
 
 CSRF_TRUSTED_ORIGINS = config(
@@ -83,7 +83,7 @@ DATABASES = {
         'HOST': os.getenv('DB_HOST'),
         'PORT': os.getenv('DB_PORT')
     }
-} 
+}
 
 # DATABASES = {
 #     'default': {
