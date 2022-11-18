@@ -52,7 +52,7 @@ jobs:
       uses: garygrossgarten/github-action-scp@release
       with:
           local: infra/
-          remote: ${{ secrets.USER }}/foodgram/
+          remote: home/${{ secrets.USER }}/foodgram/
           host: ${{ secrets.HOST }}
           # host: ${{ secrets.HOST_IP }}
           # username: ${{ secrets.HOST_USER }}
@@ -124,7 +124,7 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
         script: |
-          cd projects/foodgram/
+          cd foodgram/
           touch .env
           echo DEBUG=${{ secrets.DEBUG }} >> .env
           echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
