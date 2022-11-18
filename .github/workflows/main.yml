@@ -38,8 +38,10 @@ jobs:
     - name: Create projects directory
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.HOST_IP }}
-        username: ${{ secrets.HOST_USER }}
+        # host: ${{ secrets.HOST_IP }}
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USER }}
+        # username: ${{ secrets.HOST_USER }}
         key: ${{ secrets.SSH_KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
         script: |
@@ -52,8 +54,10 @@ jobs:
       with:
           local: infra/
           remote: /${{ secrets.HOST_USER }}/projects/foodgram/
-          host: ${{ secrets.HOST_IP }}
-          username: ${{ secrets.HOST_USER }}
+          host: ${{ secrets.HOST }}
+          # host: ${{ secrets.HOST_IP }}
+          # username: ${{ secrets.HOST_USER }}
+          username: ${{ secrets.USER }}
           privateKey: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           # passphrase: ${{ secrets.HOST_PASS }}
