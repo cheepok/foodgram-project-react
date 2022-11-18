@@ -102,7 +102,7 @@ jobs:
       with:
         context: frontend/
         push: true
-        tags: ${{ secrets.DOCKER_USER }}/foodgram_front:latest
+        tags: ${{ secrets.DOCKER_USER }}/foodgram_frontend:latest
 
   deploy:
     runs-on: ubuntu-20.04
@@ -135,7 +135,7 @@ jobs:
           sudo docker-compose stop
           sudo docker rm foodgram_frontend_1
           sudo docker rm foodgram_backend_1
-          sudo docker rmi ${{ secrets.DOCKER_USERNAME }}/foodgram_front
+          sudo docker rmi ${{ secrets.DOCKER_USERNAME }}/foodgram_frontend
           sudo docker rmi ${{ secrets.DOCKER_USERNAME }}/foodgram_back
           sudo docker-compose up -d
   
