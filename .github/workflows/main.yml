@@ -45,7 +45,6 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
         script: |
-          cd projects
           sudo rm -rf foodgram
           mkdir -p foodgram
 
