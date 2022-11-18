@@ -52,7 +52,7 @@ jobs:
       uses: garygrossgarten/github-action-scp@release
       with:
           local: infra/
-          remote: /${{ secrets.HOST_USER }}/projects/foodgram/
+          remote: /${{ secrets.HOST_USER }}/home/foodgram/
           host: ${{ secrets.HOST }}
           # host: ${{ secrets.HOST_IP }}
           # username: ${{ secrets.HOST_USER }}
