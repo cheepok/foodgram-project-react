@@ -75,7 +75,7 @@ class MyUser(AbstractUser):
     )
     password = CharField(
         verbose_name=_('Пароль'),
-        max_length=conf.MAX_LEN_USERS_CHARFIELD,
+        max_length=150,
         help_text=conf.USERS_HELP_FNAME
     )
     subscribe = ManyToManyField(
