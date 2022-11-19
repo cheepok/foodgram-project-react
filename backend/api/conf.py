@@ -1,5 +1,20 @@
+"""
+Модуль с некоторыми настройками приложения `Foodgram`.
+
+Данные настройки вынесены в отдельный файл,
+чтоб при измении сих случайно не испортить основной код.
+"""
+
+"""
+Формат даты и времени.
+Example:
+    23/02/2025 16:56
+"""
 DATE_TIME_FORMAT = '%d/%m/%Y %H:%M'
 
+"""
+HTTP-методы для активации запросов.
+"""
 # HTTP методы разрешённые для добавления объектов
 ADD_METHODS = ('GET', 'POST',)
 
@@ -13,6 +28,9 @@ ACTION_METHODS = [s.lower() for s in (ADD_METHODS + DEL_METHODS)]
 # HTTP методы разрешённые для изменения объектов
 UPDATE_METHODS = ('PUT', 'PATCH')
 
+"""
+URL-параметры для активации фильтров.
+"""
 # Параметр для поиска ингридиентов по вхождению значения в название
 SEARCH_ING_NAME = 'name'
 
@@ -36,6 +54,10 @@ SYMBOL_TRUE_SEARCH = ('1', 'true',)
 # Например только не избранное: `is_favorited=0`
 SYMBOL_FALSE_SEARCH = ('0', 'false',)
 
+"""
+Литералы для выбора менеджера Мany-To-Many
+в эндпоинтах обеспечивающих работу с этими менеджерами.
+"""
 # Создание "подписки". <user.subscribe>
 SUBSCRIBE_M2M = 'subscribe'
 # Добавление рецепта в "избранное". <user.favorites>
@@ -61,6 +83,7 @@ MAX_LEN_RECIPES_CHARFIELD = 200
 # Максимальная длина текстовых полей моделей в приложении "recipes"
 MAX_LEN_RECIPES_TEXTFIELD = 5000
 
+"""help-texts for users.models"""
 # help-text для email
 USERS_HELP_EMAIL = (
     'Обязательно для заполнения. '
