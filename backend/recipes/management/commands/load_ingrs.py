@@ -10,9 +10,6 @@ DATA_ROOT = os.path.join(settings.BASE_DIR, 'data')
 
 
 class Command(BaseCommand):
-    """
-    Добавляем ингредиенты из файла CSV
-    """
 
     def add_arguments(self, parser):
         parser.add_argument('filename', default='ingredients.csv', nargs='?',

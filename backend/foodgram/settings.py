@@ -3,7 +3,6 @@ from pathlib import Path
 
 from decouple import Csv, config
 
-# Eсли true то будет использована прилагаемая база SQLite c записанными данными
 REVIEW = 0
 
 DEBUG = config('DEBUG', default=False, cast=bool)
