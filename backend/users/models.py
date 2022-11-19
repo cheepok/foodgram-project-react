@@ -13,7 +13,6 @@ CharField.register_lookup(Length)
 
 class MyUser(AbstractUser):
 
-
     email = EmailField(
         verbose_name='Адрес электронной почты',
         max_length=conf.MAX_LEN_EMAIL_FIELD,

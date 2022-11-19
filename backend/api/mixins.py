@@ -13,7 +13,6 @@ from . import conf
 
 class AddDelViewMixin:
 
-
     add_serializer = None
 
     def add_del_obj(self, obj_id, meneger):
