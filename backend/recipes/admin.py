@@ -39,7 +39,6 @@ class RecipeAdmin(ModelAdmin):
         'name',
         'author',
         'get_image',
-        'amount_favorites',
     )
     fields = (
         ('name', 'cooking_time',),
@@ -54,10 +53,6 @@ class RecipeAdmin(ModelAdmin):
     list_filter = (
         'name', 'author__username', 'tags',
     )
-
-    @staticmethod
-    def amount_favorites(self, obj):
-        return obj.favorites.count()
 
     inlines = (IngredientInline,)
     save_on_top = True

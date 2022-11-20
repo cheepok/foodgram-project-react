@@ -5,7 +5,6 @@
 AbstractUser из Django для переопределения полей обязательных для заполнения.
 """
 from api import conf
-
 from django.contrib.auth.models import AbstractUser
 from django.db.models import (CharField, CheckConstraint, EmailField,
                               ManyToManyField, Q)
@@ -17,7 +16,7 @@ from .validators import MinLenValidator, OneOfTwoValidator
 CharField.register_lookup(Length)
 
 
-class MyUser(AbstractUser):
+class User(AbstractUser):
     """Настроенная под приложение `Foodgram` модель пользователя.
 
     При создании пользователя все поля обязательны для заполнения.
@@ -70,11 +69,6 @@ class MyUser(AbstractUser):
     )
     last_name = CharField(
         verbose_name='Фамилия',
-        max_length=conf.MAX_LEN_USERS_CHARFIELD,
-        help_text=conf.USERS_HELP_FNAME
-    )
-    password = CharField(
-        verbose_name=_('Пароль'),
         max_length=conf.MAX_LEN_USERS_CHARFIELD,
         help_text=conf.USERS_HELP_FNAME
     )

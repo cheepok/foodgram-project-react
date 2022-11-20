@@ -1,19 +1,14 @@
 from django.contrib.auth import get_user_model
 from django.db.models import F
-
 from drf_extra_fields.fields import Base64ImageField
-
 from recipes.models import Ingredient, Recipe, Tag
-
 from rest_framework.serializers import (ModelSerializer, SerializerMethodField,
                                         ValidationError)
-
+from users.models import User
 
 from .conf import MAX_LEN_USERS_CHARFIELD, MIN_USERNAME_LENGTH
 from .services import (check_value_validate, is_hex_color,
                        recipe_amount_ingredients_set)
-
-User = get_user_model()
 
 
 class ShortRecipeSerializer(ModelSerializer):
@@ -234,9 +229,9 @@ class RecipeSerializer(ModelSerializer):
             у запращивающего пользователя, иначе - False.
         """
         user = self.context.get('request').user
-        if user.is_anonymous:
-            return False
-        return user.favorites.filter(id=obj.id).exists()
+
+        if not user.is_anonymous:
+            return user.favorites.filter(id=obj.id).exists()
 
     def get_is_in_shopping_cart(self, obj):
         """Проверка - находится ли рецепт в списке  покупок.
@@ -249,9 +244,8 @@ class RecipeSerializer(ModelSerializer):
             у запращивающего пользователя, иначе - False.
         """
         user = self.context.get('request').user
-        if user.is_anonymous:
-            return False
-        return user.carts.filter(id=obj.id).exists()
+        if not user.is_anonymous:
+            return user.carts.filter(id=obj.id).exists()
 
     def validate(self, data):
         """Проверка вводных данных при создании/редактировании рецепта.
