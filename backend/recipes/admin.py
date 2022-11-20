@@ -63,7 +63,6 @@ class RecipeAdmin(ModelAdmin):
     save_on_top = True
     empty_value_display = EMPTY_VALUE_DISPLAY
 
-
     def get_image(self, obj):
         return mark_safe(f'<img src={obj.image.url} width="80" hieght="30"')
 
