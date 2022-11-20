@@ -39,7 +39,7 @@ class RecipeAdmin(ModelAdmin):
         'name',
         'author',
         'get_image',
-        # 'amount_favorites'
+        'amount_favorites',
     )
     fields = (
         ('name', 'cooking_time',),
@@ -56,7 +56,7 @@ class RecipeAdmin(ModelAdmin):
     )
 
     @staticmethod
-    def amount_favorites(obj):
+    def amount_favorites(self, obj):
         return obj.favorites.count()
 
     inlines = (IngredientInline,)
