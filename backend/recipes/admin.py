@@ -39,7 +39,7 @@ class RecipeAdmin(ModelAdmin):
         'name',
         'author',
         'get_image',
-        'tags',
+        'amount_favorites'
     )
     fields = (
         ('name', 'cooking_time',),
@@ -49,15 +49,20 @@ class RecipeAdmin(ModelAdmin):
     )
     raw_id_fields = ('author', )
     search_fields = (
-        'name', 'author',
+        'name', 'author', 'tags'
     )
     list_filter = (
         'name', 'author__username', 'tags',
     )
 
+    @staticmethod
+    def amount_favorites(obj):
+        return obj.favorites.count()
+
     inlines = (IngredientInline,)
     save_on_top = True
     empty_value_display = EMPTY_VALUE_DISPLAY
+
 
     def get_image(self, obj):
         return mark_safe(f'<img src={obj.image.url} width="80" hieght="30"')
