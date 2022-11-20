@@ -39,9 +39,7 @@ class RecipeAdmin(ModelAdmin):
         'id',
         'name',
         'author',
-        'amount_favorites',
         'get_image',
-        'amount_ingredients',
         'tags',
     )
     fields = (
