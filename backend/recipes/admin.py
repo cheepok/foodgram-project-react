@@ -39,6 +39,7 @@ class RecipeAdmin(ModelAdmin):
         'name',
         'author',
         'get_image',
+        'tags',
     )
     fields = (
         ('name', 'cooking_time',),
@@ -51,7 +52,7 @@ class RecipeAdmin(ModelAdmin):
         'name', 'author',
     )
     list_filter = (
-        'name', 'author__username',
+        'name', 'author__username', 'tags',
     )
 
     inlines = (IngredientInline,)
