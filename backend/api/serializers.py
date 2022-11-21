@@ -57,7 +57,7 @@ class UserSerializer(ModelSerializer):
         """
         user = self.context.get('request').user
         return (
-            user.is_authenticated 
+            user.is_authenticated
             and user.subscribe.filter(id=obj.id).exists()
         )
 
@@ -235,7 +235,7 @@ class RecipeSerializer(ModelSerializer):
         user = self.context.get('request').user
 
         return (
-            user.is_authenticated 
+            user.is_authenticated
             and user.favorites.filter(id=obj.id).exists()
         )
 
